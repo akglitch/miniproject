@@ -2,7 +2,7 @@
 import { FC, useEffect, useState } from 'react';
 import { Paper, Grid, Typography, List, ListItem, ListItemText, Box, Divider } from '@mui/material';
 import axios from 'axios';
-import { RecordData } from './types'; // Adjust the import path as needed
+import { RecordData } from '../types'; 
 
 const Dashboard: FC = () => {
   const [records, setRecords] = useState<RecordData[]>([]);
@@ -78,14 +78,12 @@ const Dashboard: FC = () => {
               <Divider />
               <List>
                 <ListItem button>
-                  <ListItemText primary="Administration Records" />
+                  <ListItemText primary="Forms" />
                 </ListItem>
                 <ListItem button>
-                  <ListItemText primary="Finance Records" />
+                  <ListItemText primary="Records" />
                 </ListItem>
-                <ListItem button>
-                  <ListItemText primary="Estate Records" />
-                </ListItem>
+        
               </List>
             </Paper>
           </Grid>
