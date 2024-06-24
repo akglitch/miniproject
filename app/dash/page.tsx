@@ -7,6 +7,9 @@ import FormLayout from './FormLayout';
 import EditModal from './EditModal';
 import Sidebar from './sidebar';
 import Header from '../components/Header';
+import ScanDocument from '../components/ScanDocument';
+import PrintDocument from '../components/PrintDocument';
+
 
 const Page: React.FC = () => {
   const [selectedView, setSelectedView] = useState('Dashboard');
@@ -31,6 +34,10 @@ const Page: React.FC = () => {
         return <FormLayout />;
       case 'Records':
         return <Records onEdit={handleEdit} />;
+      case 'ScanDocument':
+          return <ScanDocument />;
+      case 'PrintDocument':
+        return <PrintDocument />;
       default:
         return <Dashboard />;
     }
