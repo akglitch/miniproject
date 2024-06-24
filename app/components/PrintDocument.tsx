@@ -2,7 +2,7 @@
 import React, { useRef, useState } from 'react';
 import { Button, Dialog, DialogActions, DialogContent, DialogTitle, Typography } from '@mui/material';
 import ReactToPrint from 'react-to-print';
-import DocumentToPrint from './DocumenttoPrint';
+import DocumentToPrint from './DocumentToPrint'
 
 const PrintDocument: React.FC = () => {
   const [open, setOpen] = useState(false);
