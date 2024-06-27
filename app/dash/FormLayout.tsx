@@ -122,7 +122,7 @@ const FormLayout: React.FC = () => {
   };
 
   return (
-    <Paper className="p-4 mx-auto" style={{ maxWidth: 1500 }}>
+    <Paper className="p-4 mx-auto" style={{ maxWidth: 1300 }}>
       <Grid container spacing={3}>
         <Grid item xs={12}>
           <Typography variant="h6">Document Details</Typography>

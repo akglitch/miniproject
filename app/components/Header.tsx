@@ -4,7 +4,7 @@ import { FC } from 'react';
 
 const Header: FC = () => {
   return (
-    <AppBar className="bg-blue-600 ml-70">
+    <AppBar className="bg-blue-600 ml-70 container mx-auto">
       <Toolbar>
         <Typography variant="h6" className="flex-grow">
           Record Management System
