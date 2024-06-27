@@ -70,7 +70,7 @@ const Home: React.FC = () => {
           </button>
         </form>
         <div className="text-center">
-          <p className="text-sm">
+          <p className="text-sm text-gray-900">
             Already have an account?{' '}
             <Link href="/login" className='font-medium text-blue-600 hover:text-blue-500'>Login
              
