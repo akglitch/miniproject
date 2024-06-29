@@ -16,7 +16,7 @@ const Home: React.FC = () => {
     <div className="flex items-center justify-center h-screen bg-gray-100">
       <div className="w-full max-w-md p-8 space-y-8 bg-white rounded shadow-md">
         <div className="text-center">
-          <h2 className="text-3xl text-gray-700 font-bold">Welcome to my Application</h2>
+          <h2 className="text-3xl text-gray-700 font-bold">Record Management System</h2>
           <p className="mt-2 text-lg text-gray-700">Please sign up to continue</p>
         </div>
         <form onSubmit={handleSubmit} className="space-y-4">
@@ -76,6 +76,7 @@ const Home: React.FC = () => {
              
             </Link>
           </p>
+          <p className='text-gray-800'>experience the dashboard <Link href="https://rmy.vercel.app/dash" className='text-blue-600 hover:text-blue-500'>Dashboard</Link></p>
         </div>
       </div>
     </div>
