@@ -4,11 +4,13 @@ import React from "react";
 import Home from "./Landing/Index";
 
 
+
 const MainComponent: React.FC = () => {
 
   return (
-    <div>
+    <div className="">
       <main>
+
      <Home />
       </main>
     </div>

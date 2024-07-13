@@ -1,15 +1,15 @@
 "use client"
-import React, { useState } from 'react';
+import React, { useState, Suspense } from 'react';
 import { RecordData } from '../types';
-import Dashboard from './Dashboard';
-import Records from './Records';
-import FormLayout from './FormLayout';
 import EditModal from './EditModal';
 import Sidebar from './sidebar';
-import Header from '../components/Header';
-import ScanDocument from '../components/ScanDocument';
-import PrintDocument from '../components/PrintDocument';
 
+// Lazy-loaded components
+const Dashboard = React.lazy(() => import('./Dashboard'));
+const Incoming = React.lazy(() => import('./Incoming'));
+const FormLayout = React.lazy(() => import('./FormLayout'));
+const ScanDocument = React.lazy(() => import('../components/ScanDocument'));
+const PrintDocument = React.lazy(() => import('../components/PrintDocument'));
 
 const Page: React.FC = () => {
   const [selectedView, setSelectedView] = useState('Dashboard');
@@ -32,10 +32,10 @@ const Page: React.FC = () => {
         return <Dashboard />;
       case 'FormLayout':
         return <FormLayout />;
-      case 'Records':
-        return <Records onEdit={handleEdit} />;
+      case 'Incoming':
+        return <Incoming onEdit={handleEdit} />;
       case 'ScanDocument':
-          return <ScanDocument />;
+        return <ScanDocument />;
       case 'PrintDocument':
         return <PrintDocument />;
       default:
@@ -44,11 +44,12 @@ const Page: React.FC = () => {
   };
 
   return (
-    <div className="flex h-screen" style={{ backgroundColor: '#ffffff' }}>
-      <Header />
+    <div className="flex h-screen dark:bg-gray-900">
       <Sidebar onSelectView={setSelectedView} />
       <div className="flex-grow p-4 overflow-auto">
-        {renderView()}
+        <Suspense fallback={<div>Loading...</div>}>
+          {renderView()}
+        </Suspense>
         <EditModal
           record={editRecord}
           isOpen={isModalOpen}

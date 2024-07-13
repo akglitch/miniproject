@@ -1,4 +1,3 @@
-// src/components/Dashboard.tsx
 import { FC, useEffect, useState } from 'react';
 import { Paper, Grid, Typography, List, ListItem, ListItemText, Box, Divider } from '@mui/material';
 import axios from 'axios';
@@ -30,7 +29,7 @@ const Dashboard: FC = () => {
   ];
 
   return (
-    <div className='container mx-auto'>
+    <div className='container mx-auto bg-gray-800 ml-72'> {/* Adjust ml-72 to match your sidebar width */}
       <Box>
         <Typography variant="h3" gutterBottom>
           Dashboard Overview
@@ -81,9 +80,9 @@ const Dashboard: FC = () => {
                   <ListItemText primary="Forms" />
                 </ListItem>
                 <ListItem button>
-                  <ListItemText primary="Records" />
+                  <ListItemText primary="Incoming" />
                 </ListItem>
-        
+                {/* Add more quick links as needed */}
               </List>
             </Paper>
           </Grid>

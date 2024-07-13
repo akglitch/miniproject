@@ -1,64 +1,13 @@
-'use client';
 import React, { useState } from 'react';
 import axios from 'axios';
-import {
-  TextField,
-  Grid,
-  Button,
-  Paper,
-  Typography,
-  MenuItem,
-  Select,
-  InputLabel,
-  FormControl,
-  SelectChangeEvent,
-} from '@mui/material';
+import { TextField, Button } from '@mui/material';
 import SaveIcon from '@mui/icons-material/Save';
 import RefreshIcon from '@mui/icons-material/Refresh';
-
-const departments = [
-  'Central Administration',
-  'HumanResourceMGT',
-  'Financial Management',
-  'Budget /Rating',
-  'Audit Management',
-  'Works',
-  'Physical Planning',
-  'Housing',
-  'Roads',
-  'Trade, Industry, Tourism',
-  'Agriculture',
-  'Statistics',
-  'Birth And Death',
-  'Education, Youth',
-  'Social Welfare',
-  'Disaster Prevention',
-  'Waste Management',
-  'Natural Resources Conservation',
-  'Legal',
-  'Transport',
-  'Health Administration',
-];
-
-interface FormData {
-  year: string;
-  month: string;
-  date_received: string;
-  log_time: string;
-  serial_no: string;
-  from_whom_received: string;
-  date_of_letter: string;
-  institutional_ref_no: string;
-  received_by: string;
-  mode_of_received: string;
-  type_of_letter: string;
-  file_directory: string;
-  subject: string;
-  department: string;
-}
+import { RecordData } from '../types'; // Ensure this path is correct
 
 const FormLayout: React.FC = () => {
-  const [formData, setFormData] = useState<FormData>({
+  const [formData, setFormData] = useState<RecordData>({
+    _id: '',
     year: '',
     month: '',
     date_received: '',
@@ -66,35 +15,30 @@ const FormLayout: React.FC = () => {
     serial_no: '',
     from_whom_received: '',
     date_of_letter: '',
-    institutional_ref_no: '',
+    letter_ref_no: '',
     received_by: '',
-    mode_of_received: '',
     type_of_letter: '',
-    file_directory: '',
     subject: '',
-    department: '',
   });
 
   const handleInputChange = (
-    e: React.ChangeEvent<HTMLInputElement | { name?: string; value: unknown }>
+    e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
   ) => {
     const { name, value } = e.target;
     setFormData(prevData => ({
       ...prevData,
-      [name as string]: value,
-    }));
-  };
-
-  const handleDepartmentChange = (event: SelectChangeEvent<string>) => {
-    setFormData(prevData => ({
-      ...prevData,
-      department: event.target.value as string,
+      [name]: value,
     }));
   };
 
   const handleSubmit = async () => {
     try {
-      await axios.post('http://localhost:3001/api/records', formData);
+      await axios.post('http://localhost:5000/api/records', formData, {
+        headers: {
+          'Content-Type': 'application/json',
+        },
+      });
+
       alert('Record saved successfully!');
     } catch (error) {
       console.error('Error saving record:', error);
@@ -104,6 +48,7 @@ const FormLayout: React.FC = () => {
 
   const handleReset = () => {
     setFormData({
+      _id: '',
       year: '',
       month: '',
       date_received: '',
@@ -111,194 +56,150 @@ const FormLayout: React.FC = () => {
       serial_no: '',
       from_whom_received: '',
       date_of_letter: '',
-      institutional_ref_no: '',
+      letter_ref_no: '',
       received_by: '',
-      mode_of_received: '',
       type_of_letter: '',
-      file_directory: '',
       subject: '',
-      department: '',
     });
   };
 
   return (
-    <Paper className="p-4 mx-auto" style={{ maxWidth: 1300 }}>
-      <Grid container spacing={3}>
-        <Grid item xs={12}>
-          <Typography variant="h6">Document Details</Typography>
-        </Grid>
-
-        <Grid item xs={12} md={6}>
-          <TextField
+    <div className="container ml-72 mx-auto px-4 py-6 bg-gray-800 text-gray-100">
+      <h2 className="text-2xl font-semibold mb-4">Document Details</h2>
+      <form className="grid grid-cols-1 md:grid-cols-2 gap-4">
+        <div>
+          <label className="block mb-2">Year</label>
+          <input
+            type="text"
             name="year"
-            label="Year"
             value={formData.year}
             onChange={handleInputChange}
-            fullWidth
-            variant="outlined"
+            className="w-full bg-gray-700 text-gray-100 border border-gray-600 rounded-md px-3 py-2"
           />
-        </Grid>
-        <Grid item xs={12} md={6}>
-          <TextField
+        </div>
+        <div>
+          <label className="block mb-2">Month</label>
+          <input
+            type="text"
             name="month"
-            label="Month"
             value={formData.month}
             onChange={handleInputChange}
-            fullWidth
-            variant="outlined"
+            className="w-full bg-gray-700 text-gray-100 border border-gray-600 rounded-md px-3 py-2"
           />
-        </Grid>
-        <Grid item xs={12} md={6}>
-          <TextField
+        </div>
+        <div>
+          <label className="block mb-2">Date Received</label>
+          <input
+            type="text"
             name="date_received"
-            label="Date Received"
             value={formData.date_received}
             onChange={handleInputChange}
-            fullWidth
-            variant="outlined"
+            className="w-full bg-gray-700 text-gray-100 border border-gray-600 rounded-md px-3 py-2"
           />
-        </Grid>
-        <Grid item xs={12} md={6}>
-          <TextField
+        </div>
+        <div>
+          <label className="block mb-2">Log Time</label>
+          <input
+            type="text"
             name="log_time"
-            label="Log Time"
             value={formData.log_time}
             onChange={handleInputChange}
-            fullWidth
-            variant="outlined"
+            className="w-full bg-gray-700 text-gray-100 border border-gray-600 rounded-md px-3 py-2"
           />
-        </Grid>
-        <Grid item xs={12} md={6}>
-          <TextField
+        </div>
+        <div>
+          <label className="block mb-2">Serial No</label>
+          <input
+            type="text"
             name="serial_no"
-            label="Serial No"
             value={formData.serial_no}
             onChange={handleInputChange}
-            fullWidth
-            variant="outlined"
+            className="w-full bg-gray-700 text-gray-100 border border-gray-600 rounded-md px-3 py-2"
           />
-        </Grid>
-        <Grid item xs={12} md={6}>
-          <TextField
+        </div>
+        <div>
+          <label className="block mb-2">From Whom Received</label>
+          <input
+            type="text"
             name="from_whom_received"
-            label="From Whom Received"
             value={formData.from_whom_received}
             onChange={handleInputChange}
-            fullWidth
-            variant="outlined"
+            className="w-full bg-gray-700 text-gray-100 border border-gray-600 rounded-md px-3 py-2"
           />
-        </Grid>
-        <Grid item xs={12} md={6}>
-          <TextField
+        </div>
+        <div>
+          <label className="block mb-2">Date of Letter</label>
+          <input
+            type="text"
             name="date_of_letter"
-            label="Date of Letter"
             value={formData.date_of_letter}
             onChange={handleInputChange}
-            fullWidth
-            variant="outlined"
+            className="w-full bg-gray-700 text-gray-100 border border-gray-600 rounded-md px-3 py-2"
           />
-        </Grid>
-        <Grid item xs={12} md={6}>
-          <TextField
-            name="institutional_ref_no"
-            label="Institutional Ref No"
-            value={formData.institutional_ref_no}
+        </div>
+        <div>
+          <label className="block mb-2">Letter Ref No</label>
+          <input
+            type="text"
+            name="letter_ref_no"
+            value={formData.letter_ref_no}
             onChange={handleInputChange}
-            fullWidth
-            variant="outlined"
+            className="w-full bg-gray-700 text-gray-100 border border-gray-600 rounded-md px-3 py-2"
           />
-        </Grid>
-        <Grid item xs={12} md={6}>
-          <TextField
+        </div>
+        <div>
+          <label className="block mb-2">Received By</label>
+          <input
+            type="text"
             name="received_by"
-            label="Received By"
             value={formData.received_by}
             onChange={handleInputChange}
-            fullWidth
-            variant="outlined"
+            className="w-full bg-gray-700 text-gray-100 border border-gray-600 rounded-md px-3 py-2"
           />
-        </Grid>
-        <Grid item xs={12} md={6}>
-          <TextField
-            name="mode_of_received"
-            label="Mode of Received"
-            value={formData.mode_of_received}
-            onChange={handleInputChange}
-            fullWidth
-            variant="outlined"
-          />
-        </Grid>
-        <Grid item xs={12} md={6}>
-          <TextField
+        </div>
+        <div>
+          <label className="block mb-2">Type of Letter</label>
+          <input
+            type="text"
             name="type_of_letter"
-            label="Type of Letter"
             value={formData.type_of_letter}
             onChange={handleInputChange}
-            fullWidth
-            variant="outlined"
+            className="w-full bg-gray-700 text-gray-100 border border-gray-600 rounded-md px-3 py-2"
           />
-        </Grid>
-        <Grid item xs={12} md={6}>
-          <TextField
-            name="file_directory"
-            label="File Directory"
-            value={formData.file_directory}
-            onChange={handleInputChange}
-            fullWidth
-            variant="outlined"
-          />
-        </Grid>
-        <Grid item xs={12}>
+        </div>
+        <div className="col-span-2">
+          <label className="block mb-2">Subject</label>
           <TextField
             name="subject"
-            label="Subject"
             value={formData.subject}
             onChange={handleInputChange}
             fullWidth
             variant="outlined"
+            className="bg-gray-700 text-gray-100 border border-gray-600 rounded-md px-3 py-2"
           />
-        </Grid>
-        <Grid item xs={12}>
-          <FormControl fullWidth variant="outlined">
-            <InputLabel>Department</InputLabel>
-            <Select
-              name="department"
-              value={formData.department}
-              onChange={handleDepartmentChange}
-              label="Department"
-            >
-              {departments.map(department => (
-                <MenuItem key={department} value={department}>
-                  {department}
-                </MenuItem>
-              ))}
-            </Select>
-          </FormControl>
-        </Grid>
-        <Grid item xs={12} sm={6}>
+        </div>
+        <div className="col-span-2 flex justify-between">
           <Button
             variant="contained"
             color="primary"
             startIcon={<SaveIcon />}
             onClick={handleSubmit}
-            fullWidth
+            className="bg-blue-500 hover:bg-blue-600 text-white px-4 py-2 rounded-md"
           >
             Save Record
           </Button>
-        </Grid>
-        <Grid item xs={12} sm={6}>
           <Button
             variant="contained"
             color="secondary"
             startIcon={<RefreshIcon />}
             onClick={handleReset}
-            fullWidth
+            className="bg-red-500 hover:bg-red-600 text-white px-4 py-2 rounded-md"
           >
             Reset Form
           </Button>
-        </Grid>
-      </Grid>
-    </Paper>
+        </div>
+      </form>
+    </div>
   );
 };
 
